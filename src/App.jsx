@@ -9,16 +9,37 @@ function App() {
   const [users, setUsers] = useState(initialState);
 
   // TODO: 이름과 나이를 각각 상태로 정의하세요. 초기값은 빈문자열("")입니다.
+  const [name, setNames] = useState("");
+  const [age, setAges] = useState("");
 
   const addUser = (e) => {
     e.preventDefault();
+    
     // TODO: 이름과 나이가 모두 입력되지 않았을 때는 alert 처리하고 함수를 종료하세요. 논리합연산자 (||) 를 이용하세요.
-
+    if (!name || !age) {
+      alert("이름과 나이를 모두 입력해주세요!");
+      return;
+    }
+    
     // TODO: 사용자 리스트 상태를 업데이트 하세요. spread operator 를 사용하고, 추가되는 id는 현재 시간을 밀리초 단위로 반환하는 Date.now() 를 사용하세요.
+    const newUser = {
+      id: Date.now(), // 현재 시간을 밀리초 단위로 반환하여 고유 id 생성
+      name: name,
+      age: parseInt(age)
+    };
+  
+    setUsers([...users, newUser]);
+    setNames('');
+    setAges('');
   };
-
-  const removeUser = (id) => {
+  
+  const removeUser = (user) => {
     // TODO: filter 메소드를 사용해서 사용자 삭제 로직을 구현해 보세요.
+    setUsers(
+      users.filter(function (el) {
+        return el.user !== user;
+      })
+    );
   };
 
   return (
